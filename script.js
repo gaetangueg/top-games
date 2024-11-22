@@ -146,49 +146,36 @@ function viewModal(gameId) {
 }*/
 
 function editModal(gameId) {
-    // Trouver le jeu en fonction de son identifiant
-    const result = gamesList.findIndex((game) => game.id === parseInt(gameId));
-    if (result === -1) {
-        console.error("Jeu non trouvé.");
-        return;
-    }
+	// Trouvez le jeu en fonction de son identifiant
+	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
+	// Injectez le formulaire dans le corps du modal
+	fetch("from.html").then((data) => {
+		data.text().then((form) => {
+			// Modifiez le titre et le corps du modal
+			const selectedGame = gamesList[result]
+			modifyModal("Mode Edition", form)
+			modifyFom({
+				title: selectedGame.title,
+				year: selectedGame.year,
+				imageUrl: selectedGame.imageUrl,
+			})
+		})
+	})
+}
 
-    // Charger et injecter le formulaire dans le modal
-    fetch("from.html")
-        .then((data) => data.text())
-        .then((form) => {
-            // Injecter le formulaire dans le modal
-            modifyModal("Mode Edition", form);
-
-            // Remplir les champs après l'injection
-            const selectedGame = gamesList[result];
-            modifyFom({
-                title: selectedGame.title,
-                year: selectedGame.year,
-                imageUrl: selectedGame.imageUrl,
-            });
-        })
-        .catch((error) => {
-            console.error("Erreur lors du chargement du formulaire :", error);
-        });
+function modifyFom(gameData) {
+	const form = document.querySelector("form")
+	console.log(gameData)
 }
 
 
 
 
 function modifyFom(gameData) {
-    // Ajouter une vérification et un délai pour s'assurer que le formulaire est chargé
-    setTimeout(() => {
-        const form = document.querySelector("form");
-        if (form) {
-            // Remplir les champs avec les données du jeu
-            form.querySelector("#title").value = gameData.title;
-            form.querySelector("#year").value = gameData.year;
-            form.querySelector("#imageUrl").value = gameData.imageUrl;
-        } else {
-            console.error("Formulaire introuvable dans le modal.");
-        }
-    }, 100); // Attendre 100ms pour s'assurer que le DOM est prêt
+	const form = document.querySelector("form")
+	form.title.value = gameData.title
+	form.year.value = gameData.year
+	form.imageUrl.value = gameData.imageUrl
 }
 
 
