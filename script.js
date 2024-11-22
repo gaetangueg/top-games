@@ -149,7 +149,7 @@ function editModal(gameId) {
 	// Trouvez le jeu en fonction de son identifiant
 	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
 	// Injectez le formulaire dans le corps du modal
-	fetch("./form.html").then((data) => {
+	fetch("from.html").then((data) => {
 		data.text().then((form) => {
 			// Modifiez le titre et le corps du modal
 			const selectedGame = gamesList[result]
