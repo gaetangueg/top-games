@@ -146,7 +146,7 @@ function viewModal(gameId) {
 }*/
 
 function editModal(gameId) {
-    // Trouver le jeu en fonction de son identifiant
+    // Trouvez le jeu en fonction de son identifiant
     const result = gamesList.findIndex((game) => game.id === parseInt(gameId));
     if (result === -1) {
         console.error("Jeu non trouvé.");
@@ -174,18 +174,22 @@ function editModal(gameId) {
 }
 
 
-function modifyFom(gameData) {
-    // Sélectionner le formulaire dans le modal
-    const form = document.querySelector("form");
 
-    if (form) {
-        // Remplir les champs avec les données du jeu
-        form.querySelector("#title").value = gameData.title;
-        form.querySelector("#year").value = gameData.year;
-        form.querySelector("#imageUrl").value = gameData.imageUrl;
-    } else {
-        console.error("Formulaire introuvable dans le modal.");
-    }
+function modifyFom(gameData) {
+    // Utilisez setTimeout pour s'assurer que le formulaire est chargé
+    setTimeout(() => {
+        const form = document.querySelector("form");
+
+        if (form) {
+            // Remplir les champs avec les données du jeu
+            form.querySelector("#title").value = gameData.title;
+            form.querySelector("#year").value = gameData.year;
+            form.querySelector("#imageUrl").value = gameData.imageUrl;
+        } else {
+            console.error("Formulaire introuvable dans le modal.");
+        }
+    }, 100); // Attendre 100ms pour que le DOM soit mis à jour
 }
+
 
 
