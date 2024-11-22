@@ -145,25 +145,24 @@ function viewModal(gameId) {
 	modifyModal("Mode Edition")
 }*/
 
-async function editModal(gameId) {
-    try {
-        // Trouver le jeu correspondant
-        const result = gamesList.findIndex((game) => game.id === parseInt(gameId));
-        if (result === -1) throw new Error("Jeu non trouvé");
+function editModal(gameId) {
+	// Trouvez le jeu en fonction de son identifiant
+	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
+	// Injectez le formulaire dans le corps du modal
+	fetch("./form.html").then((data) => {
+		data.text().then((form) => {
+			// Modifiez le titre et le corps du modal
+			modifyModal("Mode Edition", form)
+			modifyFom()
+		})
+	})
+	const selectedGame = gamesList[result]
+	console.log(selectedGame)
+}
 
-        // Charger le contenu de form.html
-        const response = await fetch("from.html");
-        if (!response.ok) throw new Error(`Erreur de chargement: ${response.status}`);
-
-        // Lire le contenu HTML du fichier
-        const formHtml = await response.text();
-
-        // Injecter le formulaire dans le modal
-        modifyModal("Mode Edition", formHtml);
-    } catch (error) {
-        console.error("Erreur dans editModal :", error);
-        modifyModal("Erreur", `<p>Impossible de charger le formulaire : ${error.message}</p>`);
-    }
+function modifyFom() {
+	const form = document.querySelector("form")
+	console.log(form)
 }
 
 
