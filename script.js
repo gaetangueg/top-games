@@ -146,7 +146,7 @@ function viewModal(gameId) {
 }*/
 
 function editModal(gameId) {
-    // Trouvez le jeu en fonction de son identifiant
+    // Trouver le jeu en fonction de son identifiant
     const result = gamesList.findIndex((game) => game.id === parseInt(gameId));
     if (result === -1) {
         console.error("Jeu non trouvé.");
@@ -154,32 +154,32 @@ function editModal(gameId) {
     }
 
     // Charger et injecter le formulaire dans le modal
-    fetch("from.html").then((data) => {
-        data.text().then((form) => {
-            const selectedGame = gamesList[result];
-
-            // Modifier le titre et le contenu du modal
+    fetch("from.html")
+        .then((data) => data.text())
+        .then((form) => {
+            // Injecter le formulaire dans le modal
             modifyModal("Mode Edition", form);
 
-            // Remplir le formulaire avec les données du jeu
+            // Remplir les champs après l'injection
+            const selectedGame = gamesList[result];
             modifyFom({
                 title: selectedGame.title,
                 year: selectedGame.year,
                 imageUrl: selectedGame.imageUrl,
             });
+        })
+        .catch((error) => {
+            console.error("Erreur lors du chargement du formulaire :", error);
         });
-    }).catch((error) => {
-        console.error("Erreur lors du chargement du formulaire :", error);
-    });
 }
 
 
 
+
 function modifyFom(gameData) {
-    // Utilisez setTimeout pour s'assurer que le formulaire est chargé
+    // Ajouter une vérification et un délai pour s'assurer que le formulaire est chargé
     setTimeout(() => {
         const form = document.querySelector("form");
-
         if (form) {
             // Remplir les champs avec les données du jeu
             form.querySelector("#title").value = gameData.title;
@@ -188,8 +188,9 @@ function modifyFom(gameData) {
         } else {
             console.error("Formulaire introuvable dans le modal.");
         }
-    }, 100); // Attendre 100ms pour que le DOM soit mis à jour
+    }, 100); // Attendre 100ms pour s'assurer que le DOM est prêt
 }
+
 
 
 
