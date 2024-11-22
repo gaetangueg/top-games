@@ -146,25 +146,46 @@ function viewModal(gameId) {
 }*/
 
 function editModal(gameId) {
-	// Trouvez le jeu en fonction de son identifiant
-	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
-	// Injectez le formulaire dans le corps du modal
-	fetch("from.html").then((data) => {
-		data.text().then((form) => {
-			// Modifiez le titre et le corps du modal
-			const selectedGame = gamesList[result]
-			modifyModal("Mode Edition", form)
-			modifyFom({
-				title: selectedGame.title,
-				year: selectedGame.year,
-				imageUrl: selectedGame.imageUrl,
-			})
-		})
-	})
+    // Trouver le jeu en fonction de son identifiant
+    const result = gamesList.findIndex((game) => game.id === parseInt(gameId));
+    if (result === -1) {
+        console.error("Jeu non trouvé.");
+        return;
+    }
+
+    // Charger et injecter le formulaire dans le modal
+    fetch("./form.html").then((data) => {
+        data.text().then((form) => {
+            const selectedGame = gamesList[result];
+
+            // Modifier le titre et le contenu du modal
+            modifyModal("Mode Edition", form);
+
+            // Remplir le formulaire avec les données du jeu
+            modifyFom({
+                title: selectedGame.title,
+                year: selectedGame.year,
+                imageUrl: selectedGame.imageUrl,
+            });
+        });
+    }).catch((error) => {
+        console.error("Erreur lors du chargement du formulaire :", error);
+    });
 }
 
+
 function modifyFom(gameData) {
-	const form = document.querySelector("form")
-	console.log(gameData)
+    // Sélectionner le formulaire dans le modal
+    const form = document.querySelector("form");
+
+    if (form) {
+        // Remplir les champs avec les données du jeu
+        form.querySelector("#title").value = gameData.title;
+        form.querySelector("#year").value = gameData.year;
+        form.querySelector("#imageUrl").value = gameData.imageUrl;
+    } else {
+        console.error("Formulaire introuvable dans le modal.");
+    }
 }
+
 
