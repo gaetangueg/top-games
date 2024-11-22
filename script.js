@@ -163,12 +163,6 @@ function editModal(gameId) {
 	})
 }
 
-function modifyFom(gameData) {
-	const form = document.querySelector("form")
-	console.log(gameData)
-}
-
-
 
 
 function modifyFom(gameData) {
