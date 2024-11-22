@@ -154,7 +154,7 @@ function editModal(gameId) {
     }
 
     // Charger et injecter le formulaire dans le modal
-    fetch("./form.html").then((data) => {
+    fetch("from.html").then((data) => {
         data.text().then((form) => {
             const selectedGame = gamesList[result];
 
