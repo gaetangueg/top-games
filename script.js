@@ -153,9 +153,7 @@ function viewModal(gameId) {
 	modifyModal("Mode Edition")
 }*/
 
-function updateGames() {
-	console.log("running update games ...")
-}
+
 
 function editModal(gameId) {
 	// Trouvez le jeu en fonction de son identifiant
@@ -178,7 +176,9 @@ function editModal(gameId) {
 	})
 }
 
-
+function updateGames() {
+	console.log("running update games ...")
+}
 
 function modifyFom(gameData) {
 	const form = document.querySelector("form")
