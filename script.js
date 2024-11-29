@@ -179,7 +179,13 @@ function editModal(gameId) {
 }
 
 function updateGames(title, year, imageUrl, gameId) {
-	console.log(title, year, imageUrl, gameId)
+	// Trouvez le jeu en fonction de son identifiant
+	const index = gamesList.findIndex((game) => game.id === parseInt(gameId))
+
+	gamesList[index].title = title
+	gamesList[index].year = year
+	gamesList[index].imageUrl = imageUrl
+	console.log(gamesList[index])
 }
 
 function modifyFom(gameData) {
