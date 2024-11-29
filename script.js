@@ -167,6 +167,9 @@ function editModal(gameId) {
 				year: selectedGame.year,
 				imageUrl: selectedGame.imageUrl,
 			})
+			document
+			.querySelector('button[type="submit"]')
+			.addEventListener("click", updateGames)
 		})
 	})
 }
