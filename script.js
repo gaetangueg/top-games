@@ -153,6 +153,10 @@ function viewModal(gameId) {
 	modifyModal("Mode Edition")
 }*/
 
+function updateGames() {
+	console.log("running update games ...")
+}
+
 function editModal(gameId) {
 	// Trouvez le jeu en fonction de son identifiant
 	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
