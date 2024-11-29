@@ -187,14 +187,36 @@ function editModal(gameId) {
 }
 
 function updateGames(title, year, imageUrl, gameId) {
-	// Trouvez le jeu en fonction de son identifiant
-	const index = gamesList.findIndex((game) => game.id === parseInt(gameId))
+    // Trouvez le jeu en fonction de son identifiant
+    const index = gamesList.findIndex((game) => game.id === parseInt(gameId))
 
-	gamesList[index].title = title
-	gamesList[index].year = year
-	gamesList[index].imageUrl = imageUrl
-	console.log(gamesList[index])
+    // Mettez à jour les données dans gamesList
+    gamesList[index].title = title
+    gamesList[index].year = year
+    gamesList[index].imageUrl = imageUrl
+
+    // Supprimez tout le contenu des jeux dans le DOM
+    document.querySelector(".row").innerHTML = ""
+
+    // Réécrivez le DOM avec les données mises à jour
+    writeDom()
+
+    // Réattachez les gestionnaires d'événements pour les boutons "Edit" et "View"
+    const editButtons = document.querySelectorAll(".edit")
+    editButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            editModal(e.target.getAttribute("data-edit-id"))
+        })
+    })
+
+    const viewButtons = document.querySelectorAll(".view")
+    viewButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            viewModal(e.target.getAttribute("data-view-id"))
+        })
+    })
 }
+
 
 function modifyFom(gameData) {
 	const form = document.querySelector("form")
